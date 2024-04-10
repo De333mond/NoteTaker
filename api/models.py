@@ -1,13 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 
 
 class Tag(models.Model):
     title = models.CharField(max_length=255)
 
-    posts = models.ManyToManyField("Post")
+    posts = models.ManyToManyField("Post", blank=True)
+
+    def __str__(self):
+        return self.title
 
 
 class Post(models.Model):
@@ -17,3 +21,5 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
+    def __str__(self):
+        return self.title
